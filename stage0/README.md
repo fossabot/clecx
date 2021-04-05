@@ -1,3 +1,4 @@
+## Not much is commited, a little bit is on another VCS
 # The Stage0 Compiler
 
 ### Why Python, the slowest language, a language that should never be used for interpreters?
