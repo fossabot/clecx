@@ -4,6 +4,11 @@
 # clecx
 🚀 Clecx -  A compiled language inspired by C and Rust. Current Stage: Bootstrapping
 
+# What even is Clecx?
+
+There currently is a great war (not really): C/C++ vs Rust.
+Why not combine them? Why not combine C/C++s great (in my opinion) Memory Managment with Rusts safety and all the other great features that it has?
+This is why this was created!
 
 
 
