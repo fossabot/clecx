@@ -32,8 +32,9 @@ This does not work yet, this is just a dream of what it might look like :)
 Syntax is WIP. We are open for suggestions!
 
 ```cpp
-#import std::io; // Rust Style Imports
-#import "Filename.clx" // C Style Imports
+#import std::io; // Rust Style Imports - Not a C Style Preprocessor
+#import "Filename.clx" // C Style Imports - Not a C Style Preprocessor, just looks like one :)
+#define HELLO 10 // Another C Thing :)
 
 struct HelloWorldStruct { // Rust Style Structs
     hey: int,
