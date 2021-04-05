@@ -1,4 +1,4 @@
-# There is more code, not all is commited. Much is private, but I am having problems with migrating from another VCS
+# There is more code, not all is commited. Much is private as I am having problems with migrating from another VCS
 
 
 # clecx
