@@ -7,7 +7,7 @@ struct HelloWorld {
     z: string;
 }
 
-int main() {
+fn main() -> int {
     res_print_DO_NOT_USE("Hello, World");
     let hey: HelloWorld*;
     hey->x = 10;

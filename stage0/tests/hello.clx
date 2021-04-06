@@ -5,6 +5,6 @@
 My name is Panem
 */
 
-int main() {
+fn main() -> int {
     io::println("Hello, World!");
 }

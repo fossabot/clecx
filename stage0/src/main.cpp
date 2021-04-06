@@ -15,7 +15,7 @@ int main(int argc, char** argv)
     std::vector<Token> tokens = lexer->scan(contents);
     LOG("Done scanning!");
 
-    for (auto token : tokens) {
+    for (auto& token : tokens) {
         // Print it!
         print_token(token);
     }

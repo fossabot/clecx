@@ -3,7 +3,7 @@
 
 Lexer::Lexer() {
     // Pushing back tokens
-    reserved_kw.push_back("let");
+    reserved_kw.push_back("fn");
     reserved_kw.push_back("if");
     reserved_kw.push_back("else");
     reserved_kw.push_back("switch");
@@ -144,9 +144,12 @@ void Lexer::register_ident() {
         lexcon += get_curr();
         advance();
     }
+
     // Is it a reserved keyword?
     if (std::find(reserved_kw.begin(), reserved_kw.end(), lexcon) != reserved_kw.end()) {
         push_token(Token(TokenKind::KEYWORD, lexcon));
+    } else if (lexcon == "true" || lexcon == "false") /* Is a bool? */{
+        push_token(Token(TokenKind::ATOM_BOOL, lexcon));
     } else {
         push_token_no_advance(Token(TokenKind::ATOM_IDENT, lexcon));
     }
@@ -170,7 +173,24 @@ void Lexer::register_string(char start)
     std::string lexcon;
     advance();
     while (get_curr() != start) {
-        lexcon += get_curr();
+        // Is it an escape code?
+        // TODO: What grammar does an escape code have?
+        if (get_curr() == '\\') // Sadly, no character has just a '\'
+        {
+            advance(); // No slash
+            switch (get_curr())
+            {
+                case 'n': lexcon += '\n'; break;
+                case 'b': lexcon += '\b'; break;
+                case 't': lexcon += '\t'; break;
+                // Unknown escape code
+                default:
+                    lexcon += get_curr();
+                    break;
+            }
+        } else {
+                lexcon += get_curr();
+        }
         advance();
     }
 

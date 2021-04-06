@@ -34,6 +34,7 @@ enum TokenKind
     RBRACE,
     COMMA,
     ATOM_STRING,
+    ATOM_BOOL,
 };
 
 struct Token
@@ -74,6 +75,7 @@ inline void print_token(Token tok) {
         case TokenKind::DOUBLECOLON: kind = "DOUBLECOLON"; break;
         case TokenKind::COMMA: kind = "COMMA"; break;
         case TokenKind::ATOM_STRING: kind = "STRING"; break;
+        case TokenKind::ATOM_BOOL: kind = "BOOL"; break;
         default:
             kind = "UNKNOWN"; // Throw syntax error TODO
             break;
