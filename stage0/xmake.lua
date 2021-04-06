@@ -1,9 +1,8 @@
 add_rules("mode.debug", "mode.release")
 
-target("bclecx")
+target("clecx")
     set_kind("binary")
     add_files("src/*.cpp")
-    add_files("src/*.c")
     set_languages("c14", "c++20")
 
 --
@@ -53,6 +52,7 @@ target("bclecx")
 --    set_warnings("all", "error")
 --
 --    -- set language: c99, c++11
+--    set_languages("c99", "c++11")
 --
 --    -- set optimization: none, faster, fastest, smallest
 --    set_optimize("fastest")

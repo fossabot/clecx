@@ -1,0 +1,15 @@
+#import "hello.clx"
+#define HELLO() hey
+
+struct HelloWorld {
+    x: int;
+    y: int;
+    z: string;
+}
+
+int main() {
+    res_print_DO_NOT_USE("Hello, World");
+    let hey: HelloWorld*;
+    hey->x = 10;
+    hey->z = 100;
+}

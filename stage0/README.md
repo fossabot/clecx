@@ -1,9 +1,9 @@
 ## Not much is commited, a little bit is on another VCS
 # The Stage0 Compiler
 
-We are using Xmake for this. Why? Because I love xmake.
-How to run it? Use `xmake` to generate it and then run `xmake run` to run it.
-You need to install [xmake](https://xmake.io)
+## How to build?
+
+First, use `xmake` to build, then `xmake run` to run.
 
 ### Runtime speed is useless right now
 

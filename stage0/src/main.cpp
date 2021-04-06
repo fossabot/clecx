@@ -1,21 +1,23 @@
 #include "core.hpp"
 #include "utils.hpp"
+#include "lexer.hpp"
+#include <string>
+#include <fstream>
+#include <streambuf>
 
 int main(int argc, char** argv)
 {
-    if (argc < 2)
-    {
-        // No file provided
-        ERR("You need to provide a filename in order to use this command. Usage: `bclecx <filename>`");
-        return 1;
-    }
-    if (!file_exists(argv[1]))
-    {
-        // ERR("File does not exist!");
-    }
-
-    std::string contents = get_file_contents(argv[1]);
+    std::ifstream t("file.txt");
+    std::string contents((std::istreambuf_iterator<char>(t)),
+                 std::istreambuf_iterator<char>());
     LOG(contents);
+    Lexer* lexer = new Lexer();
+    std::vector<Token> tokens = lexer->scan(contents);
+
+    for (auto token : tokens) {
+        // Print it!
+        print_token(token);
+    }
 
     return 0;
 
