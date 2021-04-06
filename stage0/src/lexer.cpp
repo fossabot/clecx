@@ -37,9 +37,21 @@ std::vector<Token> Lexer::scan(std::string contents)
                 advance();
                 break;
             case '/':
-                if (peek() == '/')
+                if (peek() == '*')
                 {
-                    push_token(Token(TokenKind::COMMENT_START, ""));
+                    // Block Comments
+                    advance();
+                    advance();
+                    while (peek() != '/' && get_curr() != '*')
+                    {
+                        advance();
+                    }
+                    advance();
+                    advance();
+                    break;
+                }
+                else if (peek() == '/')
+                {
                     while (get_curr() != '\n') // GOTO: End of line
                     {
                         advance();

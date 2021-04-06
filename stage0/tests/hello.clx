@@ -1,6 +1,9 @@
 #import std::io;
 
-,
+/* Hello World!
+    What is your name?
+My name is Panem
+*/
 
 int main() {
     io::println("Hello, World!");
