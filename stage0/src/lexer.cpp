@@ -3,8 +3,22 @@
 
 Lexer::Lexer() {
     // Pushing back tokens
-    reserved_kw = { "fn", "if", "else", "switch", "res_print_DO_NOT_USE()", "import", "include", "define" };
-    reserved_types = { "int", "bool", "str" };
+    keywords.insert({"fn", TokenKind::FN});
+    keywords.insert({"if", TokenKind::IF});
+    keywords.insert({"elseif", TokenKind::ELSE_IF});
+    keywords.insert({"else", TokenKind::ELSE});
+    keywords.insert({"for", TokenKind::FOR});
+    keywords.insert({"while", TokenKind::WHILE});
+    keywords.insert({"loop", TokenKind::LOOP});
+    keywords.insert({"true", TokenKind::TRUE});
+    keywords.insert({"false", TokenKind::FALSE});
+
+    keywords.insert({"int", TokenKind::TYPE_INT});
+    keywords.insert({"char", TokenKind::TYPE_CHAR});
+    keywords.insert({"bool", TokenKind::TYPE_BOOL});
+    keywords.insert({"str", TokenKind::TYPE_STR});
+
+    
 }
 
 
@@ -72,6 +86,9 @@ std::vector<Token> Lexer::scan(const std::string& contents)
                 break;
             case ';':
                 push_token(Token(TokenKind::SEMI));
+                break;
+            case '\'':
+                char_lit();
                 break;
             case ':':
                 if(peek() == ':') {
@@ -141,15 +158,12 @@ void Lexer::register_ident() {
     }
 
     // Is it a reserved keyword?
-    if (std::find(reserved_kw.begin(), reserved_kw.end(), lexcon) != reserved_kw.end()) {
-        push_token(Token(TokenKind::KEYWORD, lexcon));
-    } else if (std::find(reserved_types.begin(), reserved_types.end(), lexcon) !=  reserved_types.end()) {
-        // Reserved type
-        push_token(Token(TokenKind::TYPE, lexcon));
-    } else if (lexcon == "true" || lexcon == "false") /* Is a bool? */{
-        push_token(Token(TokenKind::ATOM_BOOL, lexcon));
+    if (keywords.count(lexcon) == 1) {
+        auto iter = keywords.find(lexcon);
+        TokenKind kind = iter->second;
+        push_token(Token(kind));
     } else {
-        push_token_no_advance(Token(TokenKind::ATOM_IDENT, lexcon));
+        push_token_no_advance(Token(TokenKind::IDENT, lexcon));
     }
 }
 
@@ -162,7 +176,42 @@ void Lexer::register_number() {
         advance();
     }
 
-    push_token_no_advance(Token(TokenKind::ATOM_NUM, lexcon));
+    push_token_no_advance(Token(TokenKind::NUMBER, lexcon));
+}
+
+void Lexer::char_lit()  {
+    std::string lexcon;
+
+
+    advance();
+    while (get_curr() != '\'') {
+        if (get_curr() == '\\') {
+            advance();
+            switch (get_curr()) {
+                case 'n':
+						lexcon += '\n';
+						break;
+					case 'b':
+						lexcon += '\b';
+						break;
+					case 't':
+						lexcon += '\t';
+						break;
+					default:
+						lexcon += peek();
+						break;
+            }
+        } else {
+            lexcon += get_curr();
+        }
+        advance();
+    }
+    advance();
+    if (lexcon.length() > 1) {
+        raise(ErrorDomain::Lexer, ErrorSeverity::Error, "TODO.clx", 10, 10, pos, "Unexpected string \"" + lexcon + "\" in character literal (n, t, etc are allowed!)");
+    } else {
+        push_token(Token(TokenKind::CHAR_LIT, lexcon));
+    }
 }
 
 void Lexer::register_string(char start)
@@ -193,5 +242,5 @@ void Lexer::register_string(char start)
     }
 
     advance();
-    push_token(Token(TokenKind::ATOM_STRING, lexcon));
+    push_token(Token(TokenKind::STRING_LIT, lexcon));
 }

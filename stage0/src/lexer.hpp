@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include "token.hpp"
+#include <unordered_map>
 #include "core.hpp"
 
 class Lexer
@@ -47,6 +48,7 @@ public:
     }
 
     void register_number();
+    void char_lit();
     void register_ident();
     void register_string(char start);
     bool has_errors;
@@ -55,7 +57,6 @@ public:
 private:
     size_t pos = 0;
     std::string src;
-    std::vector<std::string> reserved_kw; // Reserved Keywords
-    std::vector<std::string> reserved_types; // Reserved Types
+    std::unordered_map<std::string, TokenKind> keywords;
     std::vector<Token> tokens;
 };

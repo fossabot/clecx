@@ -15,12 +15,10 @@ int main(int argc, char** argv)
     std::vector<Token> tokens = lexer->scan(contents);
 
     
-    raise(ErrorDomain::Analyzer, ErrorSeverity::Error, "hello.cpp", 20, 23, 4, "Something went wrong!", "Fix this like this");
-
-    for (auto& token : tokens) {
-        // Print it!
-        print_token(token);
-    }
+    // for (auto& token : tokens) {
+    //     // Print it!
+    //     print_token(token);
+    // }
 
     return 0;
 

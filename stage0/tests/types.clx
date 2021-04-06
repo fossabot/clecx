@@ -1,3 +1,4 @@
 x: int = 10;
 y: str = "Hello, World";
 z: bool = true;
+'\LALELO'

@@ -8,6 +8,7 @@
 
 enum TokenKind
 {
+    // Operators
     ADD,
     SUB,
     DIV,
@@ -18,24 +19,39 @@ enum TokenKind
     SEMI,
     COLON,
     SHARP,
-    POINTER,
     DOT,
     PTR_ARROW, // ->
-    COMMENT_START,
-    KEYWORD,
-    TYPE,
-    ATOM_IDENT,
-    ATOM_NUM,
-    ERROR,
-    UNEXPECTED_TOK,
     EXCLAMATION,
     QUOTE,
     LBRACE,
     DOUBLECOLON,
     RBRACE,
     COMMA,
-    ATOM_STRING,
-    ATOM_BOOL,
+
+    // Other
+    NUMBER,
+    IDENT,
+    STRING_LIT,
+    CHAR_LIT,
+    BOOL,
+
+
+    // Keywords
+    FN,
+    IF,
+    ELSE_IF,
+    ELSE,
+    FOR,
+    WHILE,
+    LOOP,
+    TRUE,
+    FALSE,
+
+    // Types
+    TYPE_INT,
+    TYPE_CHAR,
+    TYPE_BOOL,
+    TYPE_STR,
 };
 
 struct Token
@@ -51,6 +67,7 @@ inline void print_token(Token tok) {
 
     switch (tok.kind)
     {
+        // Operators
         case TokenKind::ADD: kind = "ADD"; break;
         case TokenKind::SUB: kind = "SUB"; break;
         case TokenKind::DIV: kind = "DIV"; break;
@@ -61,24 +78,39 @@ inline void print_token(Token tok) {
         case TokenKind::SEMI: kind = "SEMI"; break;
         case TokenKind::COLON: kind = "COLON"; break;
         case TokenKind::SHARP: kind = "SHARP"; break;
-        case TokenKind::POINTER: kind = "POINTER"; break;
-        case TokenKind::KEYWORD: kind = "KEYWORD"; break;
         case TokenKind::DOT: kind = "DOT"; break;
         case TokenKind::PTR_ARROW: kind = "PTR_ARROW"; break;
-        case TokenKind::COMMENT_START: kind = "COMMENT_START"; break;
-        case TokenKind::ATOM_IDENT: kind = "IDENT"; break;
-        case TokenKind::ATOM_NUM: kind = "NUM"; break;
-        case TokenKind::ERROR: kind = "ERROR: "; break;
-        case TokenKind::UNEXPECTED_TOK: kind = "ERROR: Unexpected Token"; break;
         case TokenKind::EXCLAMATION: kind = "EXCLAMATION"; break;
         case TokenKind::QUOTE: kind = "QUOTE"; break;
         case TokenKind::LBRACE: kind = "LBRACE"; break;
         case TokenKind::RBRACE: kind = "RBRACE"; break;
         case TokenKind::DOUBLECOLON: kind = "DOUBLECOLON"; break;
         case TokenKind::COMMA: kind = "COMMA"; break;
-        case TokenKind::ATOM_STRING: kind = "STRING"; break;
-        case TokenKind::ATOM_BOOL: kind = "BOOL"; break;
-        case TokenKind::TYPE: kind = "TYPE"; break;
+
+        // Other
+        case TokenKind::NUMBER: kind = "NUMBER"; break;
+        case TokenKind::IDENT: kind = "IDENT"; break;
+        case TokenKind::STRING_LIT: kind = "STRING_LIT"; break;
+        case TokenKind::CHAR_LIT: kind = "CHAR_LIT"; break;
+        case TokenKind::BOOL: kind = "BOOL"; break;
+
+        // Keywords
+        case TokenKind::FN: kind = "FN"; break;
+        case TokenKind::IF: kind = "IF"; break;
+        case TokenKind::ELSE_IF: kind = "ELSEIF"; break;
+        case TokenKind::ELSE: kind = "ELSE"; break;
+        case TokenKind::FOR: kind = "FOR"; break;
+        case TokenKind::WHILE: kind = "WHILE"; break;
+        case TokenKind::LOOP: kind = "LOOP"; break;
+        case TokenKind::TRUE: kind = "TRUE"; break;
+        case TokenKind::FALSE: kind = "FALSE"; break;
+
+        // Types
+        case TokenKind::TYPE_INT: kind = "INT"; break;
+        case TokenKind::TYPE_CHAR: kind = "CHAR"; break;
+        case TokenKind::TYPE_BOOL: kind = "BOOL"; break;
+        case TokenKind::TYPE_STR: kind = "STRING"; break;
+        
         default:
             kind = "UNKNOWN"; // Throw syntax error TODO
             break;
