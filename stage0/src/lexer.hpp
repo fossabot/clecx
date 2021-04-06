@@ -49,6 +49,8 @@ public:
     void register_number();
     void register_ident();
     bool has_errors;
+    void skip_whitespace();
+
 private:
     size_t pos = 0;
     std::string src;

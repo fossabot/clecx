@@ -26,6 +26,13 @@ enum TokenKind
     ATOM_IDENT,
     ATOM_NUM,
     ERROR,
+    UNEXPECTED_TOK,
+    EXCLAMATION,
+    QUOTE,
+    LBRACE,
+    DOUBLECOLON,
+    RBRACE,
+    COMMA,
 };
 
 struct Token
@@ -57,6 +64,13 @@ inline void print_token(Token tok) {
         case TokenKind::ATOM_IDENT: kind = "IDENT"; break;
         case TokenKind::ATOM_NUM: kind = "NUM"; break;
         case TokenKind::ERROR: kind = "ERROR: "; break;
+        case TokenKind::UNEXPECTED_TOK: kind = "ERROR: Unexpected Token"; break;
+        case TokenKind::EXCLAMATION: kind = "EXCLAMATION"; break;
+        case TokenKind::QUOTE: kind = "QUOTE"; break;
+        case TokenKind::LBRACE: kind = "LBRACE"; break;
+        case TokenKind::RBRACE: kind = "RBRACE"; break;
+        case TokenKind::DOUBLECOLON: kind = "DOUBLECOLON"; break;
+        case TokenKind::COMMA: kind = "COMMA"; break;
         default:
             kind = "UNKNOWN"; // Throw syntax error TODO
             break;

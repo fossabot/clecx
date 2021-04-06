@@ -7,12 +7,13 @@
 
 int main(int argc, char** argv)
 {
-    std::ifstream t("file.txt");
+    std::ifstream t(argv[1]);
     std::string contents((std::istreambuf_iterator<char>(t)),
                  std::istreambuf_iterator<char>());
-    LOG(contents);
     Lexer* lexer = new Lexer();
+    LOG(contents.length());
     std::vector<Token> tokens = lexer->scan(contents);
+    LOG("Done scanning!");
 
     for (auto token : tokens) {
         // Print it!

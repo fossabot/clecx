@@ -10,7 +10,6 @@
 
 #define LOG(x) std::cout << x << std::endl;
 #define ERR(x) std::cout << "error: " << x << std::endl;
-#define SYNTERR(l, c, f, msg) std::cout << "syntax error[" << f << "|" << c << ":" << l << "] " << msg << std::endl;
 
 inline bool file_exists (const std::string& name) {
   struct stat buffer;   

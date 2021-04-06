@@ -8,15 +8,16 @@ Lexer::Lexer() {
     reserved_kw.push_back("else");
     reserved_kw.push_back("switch");
     reserved_kw.push_back("res_print_DO_NOT_USE()");
-    reserved_kw.push_back("#import");
-    reserved_kw.push_back("#include");
-    reserved_kw.push_back("#define");
+    reserved_kw.push_back("import");
+    reserved_kw.push_back("include");
+    reserved_kw.push_back("define");
 }
+
 
 std::vector<Token> Lexer::scan(std::string contents)
 {  
     this->src = contents;
-
+    int x = 0;
     while (!is_eof())
     {
         switch (get_curr()) {
@@ -56,11 +57,9 @@ std::vector<Token> Lexer::scan(std::string contents)
                 push_token(Token(TokenKind::MUL, ""));
                 break;
             case '(':
-                LOG("L");
                 push_token(Token(TokenKind::LPAREN, ""));
                 break;
             case ')':
-                LOG("R");
                 push_token(Token(TokenKind::RPAREN, ""));
                 break;
             case '=':
@@ -70,7 +69,15 @@ std::vector<Token> Lexer::scan(std::string contents)
                 push_token(Token(TokenKind::SEMI, ""));
                 break;
             case ':':
-                push_token(Token(TokenKind::COLON, ""));
+                if(peek() == ':') {
+                    push_token(Token(TokenKind::DOUBLECOLON, ""));
+                    advance();
+                } else {
+                    push_token(Token(TokenKind::COLON, ""));
+                }
+                break;
+            case ',':
+                push_token(Token(TokenKind::COMMA, ""));
                 break;
             case '#':
                 push_token(Token(TokenKind::SHARP, ""));
@@ -79,21 +86,37 @@ std::vector<Token> Lexer::scan(std::string contents)
             case '.': 
                 push_token(Token(TokenKind::DOT, ""));
                 break;
+            case '!':
+                push_token(Token(TokenKind::EXCLAMATION, ""));
+                break;
+            case '"':
+                push_token(Token(TokenKind::QUOTE, ""));
+                break;
+            //case '"':
+            //    push_token(Token(TokenKind::QUOTE, ""));
+            case '{':
+                push_token(Token(TokenKind::LBRACE, ""));
+                break;
+            case '}':
+                push_token(Token(TokenKind::RBRACE, ""));
+                break;
             default:
                 if (isdigit(get_curr()))
                 {
-                    register_number();                    
+                    register_number();
                 }
 
                 else if (isalpha(get_curr()))
                 {
                     register_ident();                    
                 }
-                else
-                    SYNTERR(10, 20, "hello.cpp", "Syntax error!");
+                else {
+                    push_token(Token(TokenKind::UNEXPECTED_TOK, std::string(1, get_curr())));
+                }
                 break;
                 
         }
+        x++;
     }
 
     return tokens;
@@ -114,6 +137,7 @@ void Lexer::register_ident() {
         push_token_no_advance(Token(TokenKind::ATOM_IDENT, lexcon));
     }
 }
+
 
 void Lexer::register_number() {
     // Lexed content
