@@ -3,6 +3,7 @@ add_rules("mode.debug", "mode.release")
 target("clecx")
     set_kind("binary")
     add_files("src/*.cpp")
+    add_files("src/ast/*.cpp")
     set_languages("c14", "c++20")
 
 --
