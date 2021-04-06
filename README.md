@@ -1,6 +1,3 @@
-# There is more code, not all is commited. Much is private as I am having problems with migrating from another VCS
-
-
 # clecx
 🚀 Clecx -  A compiled language inspired by C and Rust. Current Stage: Bootstrapping
 
@@ -14,12 +11,7 @@ This is why this was created!
 
 # Current Status:
 
-Bootstrapping: I am currently making an interpreter for the language. The bootstrapper is written in python:
-
-### Why Python, the slowest language, a language that should never be used for interpreters?
-
-Prototyping speed. The stage0 compiler will never be used after I finish it. This is why I do not intend to spend much time on this process. Do not worry. I just want to get something up and running.
-
+Bootstrapping: I am currently making an interpreter for the language. The bootstrapper is written in C++:
 ### Where is the stage0 compiler?
 /stage0
 
@@ -74,5 +66,13 @@ int main() { // C Style Return Types
     return 1;
 }
 ```
+## What is in the stage0 so far?
 
-Currently, the stage0 is far from finished. Not all code is commited.
+- A Lexer that supports
+  - Strings
+  - Comments
+  - Numbers
+  - Binary Operators
+  - Keywords
+  - Identifiers
+  - ...
