@@ -14,7 +14,7 @@ Lexer::Lexer() {
 }
 
 
-std::vector<Token> Lexer::scan(std::string contents)
+std::vector<Token> Lexer::scan(const std::string& contents)
 {  
     this->src = contents;
     int x = 0;

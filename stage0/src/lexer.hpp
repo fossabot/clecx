@@ -34,7 +34,7 @@ public:
         return src[pos + 1];
     }
 
-    std::vector<Token> scan(std::string contents);
+    std::vector<Token> scan(const std::string& contents);
     
     inline bool expect_next(int index, TokenKind kind) {
         if (tokens[index + 1].kind == kind) { return true; }

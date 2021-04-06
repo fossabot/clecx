@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <streambuf>
+#include "error.hpp"
 
 int main(int argc, char** argv)
 {
@@ -11,9 +12,10 @@ int main(int argc, char** argv)
     std::string contents((std::istreambuf_iterator<char>(t)),
                  std::istreambuf_iterator<char>());
     Lexer* lexer = new Lexer();
-    LOG(contents.length());
     std::vector<Token> tokens = lexer->scan(contents);
-    LOG("Done scanning!");
+
+    
+    raise(ErrorDomain::Analyzer, ErrorSeverity::Error, "hello.cpp", 20, 23, 4, "Something went wrong!", "Fix this like this");
 
     for (auto& token : tokens) {
         // Print it!
