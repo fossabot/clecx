@@ -51,7 +51,6 @@ std::vector<Token> Lexer::scan(std::string contents)
                 }
                 break;
             case '+':
-                push_token(Token(TokenKind::ADD, ""));
                 break;
             case '*':
                 push_token(Token(TokenKind::MUL, ""));
@@ -90,7 +89,10 @@ std::vector<Token> Lexer::scan(std::string contents)
                 push_token(Token(TokenKind::EXCLAMATION, ""));
                 break;
             case '"':
-                push_token(Token(TokenKind::QUOTE, ""));
+                register_string('"');
+                break;
+            case '`':
+                register_string('`');
                 break;
             //case '"':
             //    push_token(Token(TokenKind::QUOTE, ""));
@@ -148,4 +150,18 @@ void Lexer::register_number() {
     }
 
     push_token_no_advance(Token(TokenKind::ATOM_NUM, lexcon));
+}
+
+void Lexer::register_string(char start)
+{
+    // Lexed content
+    std::string lexcon;
+    advance();
+    while (get_curr() != start) {
+        lexcon += get_curr();
+        advance();
+    }
+
+    advance();
+    push_token(Token(TokenKind::ATOM_STRING, lexcon));
 }

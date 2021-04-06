@@ -33,6 +33,7 @@ enum TokenKind
     DOUBLECOLON,
     RBRACE,
     COMMA,
+    ATOM_STRING,
 };
 
 struct Token
@@ -49,7 +50,8 @@ inline void print_token(Token tok) {
     {
         case TokenKind::ADD: kind = "ADD"; break;
         case TokenKind::SUB: kind = "SUB"; break;
-        case TokenKind::DIV: kind = "DIV (/)"; break;
+        case TokenKind::DIV: kind = "DIV"; break;
+        case TokenKind::MUL: kind = "MUL"; break;
         case TokenKind::RPAREN: kind = "RPAREN"; break;
         case TokenKind::LPAREN: kind = "LPAREN"; break;
         case TokenKind::EQUAL: kind = "EQUAL"; break;
@@ -71,6 +73,7 @@ inline void print_token(Token tok) {
         case TokenKind::RBRACE: kind = "RBRACE"; break;
         case TokenKind::DOUBLECOLON: kind = "DOUBLECOLON"; break;
         case TokenKind::COMMA: kind = "COMMA"; break;
+        case TokenKind::ATOM_STRING: kind = "STRING"; break;
         default:
             kind = "UNKNOWN"; // Throw syntax error TODO
             break;

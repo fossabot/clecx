@@ -48,6 +48,7 @@ public:
 
     void register_number();
     void register_ident();
+    void register_string(char start);
     bool has_errors;
     void skip_whitespace();
 
