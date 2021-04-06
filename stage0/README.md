@@ -1,9 +1,13 @@
 ## Not much is commited, a little bit is on another VCS
 # The Stage0 Compiler
 
-### Why Python, the slowest language, a language that should never be used for interpreters?
+We are using Xmake for this. Why? Because I love xmake.
+How to run it? Use `xmake` to generate it and then run `xmake run` to run it.
+You need to install [xmake](https://xmake.io)
 
-Prototyping speed. The stage0 compiler will never be used after I finish it. This is why I do not intend to spend much time on this process. Do not worry. I just want to get something up and running.
+### Runtime speed is useless right now
+
+Prototyping speed is the only important thing. The stage0 compiler will never be used after I finish it. This is why I do not intend to spend much time on this process. Do not worry. I just want to get something up and running.
 
 ### Where is the stage0 compiler?
 /stage0
