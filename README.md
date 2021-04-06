@@ -9,7 +9,8 @@ This is why this was created!
 
 ## Credits
 
-I learned a lot by reading the source of [Ceres](https://github.com/charpointer/ceres-lang). There might be a lot of similarities.
+I learned a lot by reading the source of [Ceres](https://github.com/charpointer/ceres-lang). There are a lot of similarities.
+
 ## Types
 
 `str`: Do not worry, there is no `String` and no `&str` do not panic!
