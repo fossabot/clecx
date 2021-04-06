@@ -8,6 +8,32 @@ Why not combine them? Why not combine C/C++s great (in my opinion) Memory Managm
 This is why this was created!
 
 
+## Progress
+
+The stage0 currently supports these things:
+It currently only has a lexer, the parser will be added later :)
+
+
+```cpp
+#import std::io; // Colons, Doublecolons, sharps, identifiers, ...
+// Single Line Comments!
+
+/* Multiline
+    Comments
+*/
+
+[perms: io] // These cool braces exist too
+int main() { // maybe i will add fn main() -> int later :)
+    res_print_DO_NOT_USE(); // A reserved print function (You should use io::println)
+    res_print_DO_NOT_USE("Hello, World"); // Strings 
+    res_print_DO_NOT_USE(`HEllo, WOrld`); // These funny strings
+
+    let x: int; // Keywords like 'let' and 'res_print_DO_NOT_USE'
+    x = 20; // Numbers
+}   
+
+```
+
 
 # Current Status:
 
@@ -66,13 +92,3 @@ int main() { // C Style Return Types
     return 1;
 }
 ```
-## What is in the stage0 so far?
-
-- A Lexer that supports
-  - Strings
-  - Comments
-  - Numbers
-  - Binary Operators
-  - Keywords
-  - Identifiers
-  - ...
