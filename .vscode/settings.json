@@ -59,6 +59,10 @@
         "xloctime": "cpp",
         "string_view": "cpp",
         "array": "cpp",
-        "forward_list": "cpp"
+        "forward_list": "cpp",
+        "unordered_map": "cpp",
+        "xhash": "cpp",
+        "functional": "cpp",
+        "optional": "cpp"
     }
 }

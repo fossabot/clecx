@@ -11,8 +11,6 @@ This is why this was created!
 ## Progress
 
 The stage0 currently supports these things:
-It currently only has a lexer, the parser will be added later :)
-
 
 ```cpp
 #import std::io; // Colons, Doublecolons, sharps, identifiers, ...
@@ -30,8 +28,19 @@ int main() { // maybe i will add fn main() -> int later :)
 
     let x: int; // Keywords like 'let' and 'res_print_DO_NOT_USE'
     x = 20; // Numbers
-}   
+}
+```
+It currently only has a lexer, the parser will be added later :)
 
+Good looking errors:
+```bat
+Analyzer error[E001]: Something went wrong!
+    --> hello.clx:20:4
+     |
+  20 |     TODO: Get file contents
+     |
+     |
+     | Fix this like this
 ```
 
 
