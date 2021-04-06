@@ -23,6 +23,7 @@ enum TokenKind
     PTR_ARROW, // ->
     COMMENT_START,
     KEYWORD,
+    TYPE,
     ATOM_IDENT,
     ATOM_NUM,
     ERROR,
@@ -39,6 +40,7 @@ enum TokenKind
 
 struct Token
 {
+    Token(int _kind) : kind(_kind), data("") {}
     Token(int _kind, std::string content) : kind(_kind), data(content) {}
     int kind;
     std::string data;
@@ -76,11 +78,16 @@ inline void print_token(Token tok) {
         case TokenKind::COMMA: kind = "COMMA"; break;
         case TokenKind::ATOM_STRING: kind = "STRING"; break;
         case TokenKind::ATOM_BOOL: kind = "BOOL"; break;
+        case TokenKind::TYPE: kind = "TYPE"; break;
         default:
             kind = "UNKNOWN"; // Throw syntax error TODO
             break;
     }
-    std::cout << kind << " (Data: " << tok.data << " )" << std::endl;
+    if (tok.data.length() > 0) { // no empty strings
+        std::cout << kind << " (Data: " << tok.data << " )" << std::endl;
+    } else {
+        std::cout << kind << std::endl;
+    }
 }
 
 

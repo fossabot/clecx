@@ -56,5 +56,6 @@ private:
     size_t pos = 0;
     std::string src;
     std::vector<std::string> reserved_kw; // Reserved Keywords
+    std::vector<std::string> reserved_types; // Reserved Types
     std::vector<Token> tokens;
 };

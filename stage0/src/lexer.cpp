@@ -1,16 +1,10 @@
-#include "lexer.hpp";
-
+#include "lexer.hpp"
+#include "error.hpp"
 
 Lexer::Lexer() {
     // Pushing back tokens
-    reserved_kw.push_back("fn");
-    reserved_kw.push_back("if");
-    reserved_kw.push_back("else");
-    reserved_kw.push_back("switch");
-    reserved_kw.push_back("res_print_DO_NOT_USE()");
-    reserved_kw.push_back("import");
-    reserved_kw.push_back("include");
-    reserved_kw.push_back("define");
+    reserved_kw = { "fn", "if", "else", "switch", "res_print_DO_NOT_USE()", "import", "include", "define" };
+    reserved_types = { "int", "bool", "str" };
 }
 
 
@@ -24,10 +18,10 @@ std::vector<Token> Lexer::scan(const std::string& contents)
             case '-': // Needs to be first, because two characters
                 if (peek() == '>')
                 {
-                    push_token(Token(TokenKind::PTR_ARROW, ""));
+                    push_token(Token(TokenKind::PTR_ARROW));
                     advance(); // It is two chars long, so we have to advance
                 } else {
-                    push_token(Token(TokenKind::SUB, ""));
+                    push_token(Token(TokenKind::SUB));
                 }
                 break;
             case ' ': // Whitespace
@@ -65,40 +59,40 @@ std::vector<Token> Lexer::scan(const std::string& contents)
             case '+':
                 break;
             case '*':
-                push_token(Token(TokenKind::MUL, ""));
+                push_token(Token(TokenKind::MUL));
                 break;
             case '(':
-                push_token(Token(TokenKind::LPAREN, ""));
+                push_token(Token(TokenKind::LPAREN));
                 break;
             case ')':
-                push_token(Token(TokenKind::RPAREN, ""));
+                push_token(Token(TokenKind::RPAREN));
                 break;
             case '=':
-                push_token(Token(TokenKind::EQUAL, ""));
+                push_token(Token(TokenKind::EQUAL));
                 break;
             case ';':
-                push_token(Token(TokenKind::SEMI, ""));
+                push_token(Token(TokenKind::SEMI));
                 break;
             case ':':
                 if(peek() == ':') {
-                    push_token(Token(TokenKind::DOUBLECOLON, ""));
+                    push_token(Token(TokenKind::DOUBLECOLON));
                     advance();
                 } else {
-                    push_token(Token(TokenKind::COLON, ""));
+                    push_token(Token(TokenKind::COLON));
                 }
                 break;
             case ',':
-                push_token(Token(TokenKind::COMMA, ""));
+                push_token(Token(TokenKind::COMMA));
                 break;
             case '#':
-                push_token(Token(TokenKind::SHARP, ""));
+                push_token(Token(TokenKind::SHARP));
                 break;
             // Implement Pointers TODO
             case '.': 
-                push_token(Token(TokenKind::DOT, ""));
+                push_token(Token(TokenKind::DOT));
                 break;
             case '!':
-                push_token(Token(TokenKind::EXCLAMATION, ""));
+                push_token(Token(TokenKind::EXCLAMATION));
                 break;
             case '"':
                 register_string('"');
@@ -109,10 +103,10 @@ std::vector<Token> Lexer::scan(const std::string& contents)
             //case '"':
             //    push_token(Token(TokenKind::QUOTE, ""));
             case '{':
-                push_token(Token(TokenKind::LBRACE, ""));
+                push_token(Token(TokenKind::LBRACE));
                 break;
             case '}':
-                push_token(Token(TokenKind::RBRACE, ""));
+                push_token(Token(TokenKind::RBRACE));
                 break;
             default:
                 if (isdigit(get_curr()))
@@ -125,7 +119,8 @@ std::vector<Token> Lexer::scan(const std::string& contents)
                     register_ident();                    
                 }
                 else {
-                    push_token(Token(TokenKind::UNEXPECTED_TOK, std::string(1, get_curr())));
+                    raise(ErrorDomain::Lexer, ErrorSeverity::Error, "TODO.clx", 0, 0, pos, "Invalid character %s", "Correct the bad character");
+                    advance();
                 }
                 break;
                 
@@ -140,7 +135,7 @@ std::vector<Token> Lexer::scan(const std::string& contents)
 void Lexer::register_ident() {
     // Lexed content
     std::string lexcon;
-    while (isalpha(get_curr())) {
+    while (isalnum(get_curr()) || get_curr() == '_') {
         lexcon += get_curr();
         advance();
     }
@@ -148,6 +143,9 @@ void Lexer::register_ident() {
     // Is it a reserved keyword?
     if (std::find(reserved_kw.begin(), reserved_kw.end(), lexcon) != reserved_kw.end()) {
         push_token(Token(TokenKind::KEYWORD, lexcon));
+    } else if (std::find(reserved_types.begin(), reserved_types.end(), lexcon) !=  reserved_types.end()) {
+        // Reserved type
+        push_token(Token(TokenKind::TYPE, lexcon));
     } else if (lexcon == "true" || lexcon == "false") /* Is a bool? */{
         push_token(Token(TokenKind::ATOM_BOOL, lexcon));
     } else {

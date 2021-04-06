@@ -7,6 +7,14 @@ There currently is a great war (not really): C/C++ vs Rust.
 Why not combine them? Why not combine C/C++s great (in my opinion) Memory Managment with Rusts safety and all the other great features that it has?
 This is why this was created!
 
+## Credits
+
+I learned a lot by reading the source of [Ceres](https://github.com/charpointer/ceres-lang). There might be a lot of similarities.
+## Types
+
+`str`: Do not worry, there is no `String` and no `&str` do not panic!
+`int`: Numbers
+`bool`: Booleans
 
 ## Progress
 
