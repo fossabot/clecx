@@ -56,7 +56,7 @@ Analyzer error[E001]: Something went wrong!
 
 Bootstrapping: I am currently making an interpreter for the language. The bootstrapper is written in C++:
 ### Where is the stage0 compiler?
-/stage0
+[/stage0](/stage0)
 
 ### What is a stage0 compiler?
 
