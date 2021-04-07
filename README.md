@@ -60,12 +60,7 @@ I am currently making a so-called stage0 compiler
 [/stage0](/stage0)
 
 ### What is a stage0 compiler?
-
-The bootstrapping process has the following stages:
-- Stage 0: preparing an environment for the bootstrap compiler to work with. **<- We are here**
-- Stage 1: the bootstrap compiler is produced.
-- Stage 2: a full compiler is produced by the bootstrap compiler.
-- Stage 3: a full compiler is produced by the stage 2 full compiler.
+https://en.wikipedia.org/wiki/Bootstrapping_(compilers)#Process
 
 
 ## An example of the syntax
