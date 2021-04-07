@@ -1,4 +1,6 @@
 # clecx
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fvisionizer%2Fclecx.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fvisionizer%2Fclecx?ref=badge_shield)
+
 🚀 Clecx -  A compiled language inspired by C and Rust. Current Stage: Bootstrapping
 
 # What even is Clecx?
@@ -105,3 +107,7 @@ int main() { // C Style Return Types
     return 1;
 }
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fvisionizer%2Fclecx.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fvisionizer%2Fclecx?ref=badge_large)
