@@ -59,23 +59,19 @@ impl Lexer {
                     } else {
                         self.append(tok::COLON)
                     }
-                    break;
                 },
                 // ''' => { self.scan_char(); break; }
-                '"' => { self.scan_str('"'); break; }
-                '`' => { self.scan_str('`'); break; }
+                '"' => { self.scan_str('"'); }
+                '`' => { self.scan_str('`'); }
                 _ => {
                     if char::is_numeric(self.curr()) {
-                        println!("NUMERIC");
                         self.scan_number();
                     } else if char::is_alphabetic(self.curr()) {
-                        println!("ALPHABETIC!");
                         self.scan_ident();
                     } else {
                         error::raise("tests/lextest.clx",5, 8, 15, error::Severity::ERROR, "Unexpected Token: This token is unknown to the lexer.", "This might be a bug, but it might be a simple mistake too. Delete the character.");
                         self.advance();
                     }
-                    break;
                 }
                 
             }
@@ -148,11 +144,24 @@ impl Lexer {
     }
 
     fn scan_str(&mut self, lookout: char) {
-
+        let mut content = String::from("");
+        self.advance();
+        while self.curr() != lookout
+        {
+            content.push(self.curr());
+            self.advance();
+        }
+        self.advance();
+        self.append(tok::STRING(content));
     }
 
     fn scan_number(&mut self) {
-
+        let mut content = String::from("");
+        while char::is_numeric(self.curr()) {
+            content.push(self.curr());
+            self.advance();
+        }
+        self.append_no_adv(tok::NUMBER(content));
     }
 
     fn scan_ident(&mut self) {
@@ -162,24 +171,28 @@ impl Lexer {
             self.advance();
         }
         // TODO: Very unclean way, please fix!
-        //if self.reserved.contains(content) {
-            // match content {
-            //     "fn".to_string() => { self.append_no_adv(tok::FN); break; },
-            //     "if".to_string() => { self.append_no_adv(tok::IF); break; },
-            //     "elif".to_string() => { self.append_no_adv(tok::ELIF); break; },
-            //     "else".to_string() => { self.append_no_adv(tok::ELSE); break; },
-            //     "switch".to_string() => { self.append_no_adv(tok::SWITCH); break; },
-            //     "case".to_string() => { self.append_no_adv(tok::CASE); break; },
-            //     "while".to_string() => { self.append_no_adv(tok::WHILE); break; },
-            //     "for".to_string() => { self.append_no_adv(tok::FOR); break; },
-            //     // Type(s)
-            //     "true".to_string() => { self.append_no_adv(tok::TRUE); break; },
-            //     "false".to_string() => { self.append_no_adv(tok::FALSE); break; },
-            //     "int".to_string() => { self.append_no_adv(tok::INT); break; },
-            //     "char".to_string() => { self.append_no_adv(tok::CHAR); break; },
-            //     "bool".to_string() => { self.append_no_adv(tok::BOOL); break; },
-            // }
-        //}
+        if self.reserved.contains(&content) {
+             match content.as_str() {
+                 "fn" => { self.append_no_adv(tok::FN); }
+                 "if" => { self.append_no_adv(tok::IF); },
+                 "elif" => { self.append_no_adv(tok::ELIF); },
+                 "else" => { self.append_no_adv(tok::ELSE); },
+                 "switch" => { self.append_no_adv(tok::SWITCH); },
+                 "case" => { self.append_no_adv(tok::CASE); },
+                 "while" => { self.append_no_adv(tok::WHILE); },
+                 "for" => { self.append_no_adv(tok::FOR);  },
+                 // Type(s)
+                 "true" => { self.append_no_adv(tok::TRUE); },
+                 "false" => { self.append_no_adv(tok::FALSE); },
+                 "int" => { self.append_no_adv(tok::INT); },
+                 "char" => { self.append_no_adv(tok::CHAR);  },
+                 "bool" => { self.append_no_adv(tok::BOOL); },
+                 _ => error::raise("tests/lextest.clx",5, 8, 15, error::Severity::WARN, "The requested token has not been implemented yet!", "Message me on GitHub / Discord!")
+
+             }
+        } else {
+            self.append_no_adv(tok::IDENT(content));
+        }
     }
 
     fn scan_char(self) {

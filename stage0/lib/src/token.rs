@@ -21,9 +21,9 @@ pub enum Token {
 
 
     // Types ---
-    NUMBER(i32),
+    NUMBER(String),
     STRING(String),
-    CHARLIT(char),
+    CHARLIT(String),
     Bool,
 
     // Keywords ---
