@@ -2,7 +2,7 @@
 #define HELLO() hey
 
 struct HelloWorld {
-    x: int;
+    x: BAD_TYPE;
     y: int;
     z: string;
 }

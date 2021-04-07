@@ -70,8 +70,6 @@ impl Lexer {
                         println!("ALPHABETIC!");
                         self.scan_ident();
                     } else {
-                        // Nothing found :( TODO: Throw syntax error
-                        println!("ERROR: {} not found!", self.curr());
                         self.advance();
                     }
                     break;
