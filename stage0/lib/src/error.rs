@@ -32,6 +32,32 @@ impl Severity {
 }
 
 
+static mut ERROR_NUM: i32 = 0;
+static mut WARN_NUM: i32 = 0;
+
+pub fn err_warn_summary() -> bool {
+    unsafe {
+        if ERROR_NUM >= 1 {
+            println!("{}{}{}{}{}{}", 
+            "error".red().bold(),
+            ": aborting due to ".white().bold(), 
+            ERROR_NUM.to_string().white().bold(), 
+            " error(s); ".white().bold().white().bold(), 
+            WARN_NUM.to_string().white().bold(), 
+            " warnings emitted".white().bold());
+            return true;
+        } else if WARN_NUM >= 1 {
+            println!("{}{}{}{}", 
+            "warning".yellow().bold(),
+            ": ".white().bold(), 
+            WARN_NUM.to_string().white().bold(), 
+            " warning(s) emitted; ".white().bold().white().bold());
+            return false;
+        }
+    }
+    return false;
+}
+
 /// # Raise
 /// ## Information
 /// Raises an information message:
@@ -96,6 +122,15 @@ pub fn raise(file: &str, line: i32, charst: i32, charen: i32, sev: Severity, pro
         Severity::WARN => upticks.yellow().bold(),
     };
 
+    let mut _useless = 1;
+    unsafe {
+        match sev {
+            Severity::ERROR => ERROR_NUM += 1,
+            Severity::WARN => WARN_NUM += 1,
+            _ => _useless += 1,
+        }
+    }
+
     let file_contents = utils::get_file_contents(file);
     let split = file_contents.lines();
     let vec = split.collect::<Vec<&str>>();
@@ -108,4 +143,6 @@ pub fn raise(file: &str, line: i32, charst: i32, charen: i32, sev: Severity, pro
     println!("{}{}", spaces, "|".cyan().bold());
     println!("{}{}{}{}", spaces, "= ".cyan().bold(), "fix: ".white().bold(), fix);
     println!("");
+
+
 }

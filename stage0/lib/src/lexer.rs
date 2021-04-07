@@ -1,6 +1,8 @@
 use std::vec::Vec;
 #[path="token.rs"]
 mod token;
+#[path="error.rs"]
+mod error;
 
 type tok = token::Token;
 
@@ -70,6 +72,7 @@ impl Lexer {
                         println!("ALPHABETIC!");
                         self.scan_ident();
                     } else {
+                        error::raise("tests/lextest.clx",5, 8, 15, error::Severity::ERROR, "Unexpected Token: This token is unknown to the lexer.", "This might be a bug, but it might be a simple mistake too. Delete the character.");
                         self.advance();
                     }
                     break;
