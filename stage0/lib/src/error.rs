@@ -72,7 +72,7 @@ pub fn err_warn_summary() -> bool {
 /// ## Example
 /// This code
 /// ```
-/// error::raise("hello.cpp", 23, 8, error::Severity::ERROR, "Something bad went wrong!", "Fix it by using this!");
+/// error::raise("tests/lextest.clx", 23, 8, error::Severity::ERROR, "Something bad went wrong!", "Fix it by using this!");
 /// ```
 /// Produces this output: (Colors are wrong)
 /// ``` 
